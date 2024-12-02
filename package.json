@@ -1,0 +1,13 @@
+{
+  "name": "malkovich",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "shell": "docker compose run -it --entrypoint /bin/bash malkovich",
+    "restart-docker": "docker compose down && docker compose build && docker compose up -d",
+    "docker-restart": "npm run restart-docker"
+  },
+  "author": "",
+  "license": "ISC"
+}

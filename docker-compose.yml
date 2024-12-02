@@ -1,0 +1,10 @@
+services:
+  malkovich:
+    image: grx32.azurecr.io/malkovich:latest
+    cap_add:
+    - SYS_ADMIN
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    ports:
+      - 12300:80

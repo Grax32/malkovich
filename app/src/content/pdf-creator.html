@@ -1,0 +1,102 @@
+<html>
+
+<head>
+    <title>PDF Creator</title>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            justify-content: left;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            padding-bottom: 4px;
+            border-bottom: 3px solid black;
+            width: 100%;
+        }
+
+        label {
+            padding: 5px;
+            border: 1px solid lightblue;
+            margin: 5px;
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        textarea:disabled {
+            background-image: repeating-linear-gradient(45deg,
+                    /* Crosshatch angle */
+                    rgba(0, 0, 0, 0.1),
+                    /* Line color */
+                    rgba(0, 0, 0, 0.1) 1px,
+                    transparent 1px,
+                    transparent 5px),
+                repeating-linear-gradient(-45deg,
+                    rgba(0, 0, 0, 0.1),
+                    rgba(0, 0, 0, 0.1) 1px,
+                    transparent 1px,
+                    transparent 5px);
+        }
+    </style>
+    <script>
+        function toggleTemplates() {
+            const displayHeaderFooter = document.getElementById('displayHeaderFooter');
+            const headerTemplate = document.getElementById('headerTemplate');
+            const footerTemplate = document.getElementById('footerTemplate');
+
+            if (displayHeaderFooter.checked) {
+                headerTemplate.disabled = false;
+                footerTemplate.disabled = false;
+            } else {
+                headerTemplate.disabled = true;
+                footerTemplate.disabled = true;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form action="/pdf" method="post">
+        <h1>PDF Creator</h1>
+        <hr />
+
+        <label for="format">Format:
+            <select id="format" name="format" required>
+                <option value="Letter">Letter</option>
+                <option value="Legal">Legal</option>
+                <option value="A4">A4</option>
+                <option value="A3">A3</option>
+            </select>
+        </label>
+
+        <label for="displayHeaderFooter">Display Header/Footer:
+            <input type="checkbox" id="displayHeaderFooter" name="displayHeaderFooter" onchange="toggleTemplates()">
+        </label>
+        <label for="headerTemplate">Header Template:
+            <textarea id="headerTemplate" name="headerTemplate" rows="3" cols="45" disabled></textarea>
+        </label>
+        <label for="footerTemplate">Footer Template:
+            <textarea id="footerTemplate" name="footerTemplate" rows="3" cols="45" disabled></textarea>
+        </label>
+        <label for="orientation">Orientation:
+            <select id="orientation" name="orientation">
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+            </select>
+        </label>
+
+        <label for="margin">Margin:
+            <input type="text" id="margin" name="margin">
+        </label>
+
+        <label for="content">Content:
+            <textarea id="content" name="htmlContent" rows="10" cols="45"></textarea>
+        </label>
+        <button type="submit">Create PDF</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+    "name": "malkovich",
+    "version": "1.0.0",
+    "description": "",
+    "main": "test.js",
+    "scripts": {
+        "build": "tsc && copyfiles -u 1 ./src/**/*.{html,json,js,webp,pdf} dist",
+        "start": "nodemon ./dist/index.js",
+        "dev": "npm run build && npm run start"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.21.1",
+        "generic-pool": "^3.9.0",
+        "puppeteer": "^23.9.0",
+        "typescript": "^5.7.2"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "concurrently": "^9.1.0",
+        "copyfiles": "^2.4.1",
+        "nodemon": "^3.1.7"
+    }
+}
