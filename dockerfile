@@ -7,6 +7,7 @@ COPY --chown=pptruser ./app/package.json /app/package.json
 COPY --chown=pptruser ./app/package-lock.json /app/package-lock.json
 COPY --chown=pptruser ./app/tsconfig.json /app/tsconfig.json
 
+RUN apt install psmisc
 RUN npm install
 RUN npm run build
 
