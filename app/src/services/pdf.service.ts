@@ -54,6 +54,7 @@ export async function createPdfFromPool(html: string, options: PdfGenerationOpti
     try {
         return await createPdfFromHtml(page, html, options);
     } finally {
+        await page.close();
         browserPool.release(browser);
     }
 }
@@ -83,7 +84,7 @@ function applyPdfOptionValues(options: PdfGenerationOptions) {
         }
      }
 
-    if (options.displayHeaderFooter) { pdfOptions.displayHeaderFooter = !!options.displayHeaderFooter; }
+    if (typeof options.displayHeaderFooter === 'boolean') { pdfOptions.displayHeaderFooter = options.displayHeaderFooter; }
     if (options.headerTemplate) { pdfOptions.headerTemplate = options.headerTemplate; }
     if (options.footerTemplate) { pdfOptions.footerTemplate = options.footerTemplate; }
     if (options.orientation) { pdfOptions.landscape = options.orientation === 'landscape'; }
