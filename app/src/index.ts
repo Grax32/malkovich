@@ -35,7 +35,7 @@ app.post('/pdf', async (req, res) => {
 
     const htmlContent = req.body.htmlContent;
     const filename = req.body.filename || 'document.pdf';
-    const displayHeaderFooter = parseBoolean(req.body.displayHeaderFooter);
+    const displayHeaderFooter = parseDisplayHeaderFooter(req.body.displayHeaderFooter);
     const options: PdfGenerationOptions = {
         format: req.body.format,
         margin: {  // use specific margin values if provided, otherwise use a single margin value, otherwise use default values
@@ -78,23 +78,27 @@ app.listen(port, () => {
     console.log('Server is running on http://localhost:' + port);
 });
 
-function parseBoolean(value: unknown): boolean | undefined {
+function parseDisplayHeaderFooter(value: unknown): boolean | undefined {
     if (typeof value === 'boolean') {
         return value;
     }
 
-    if (typeof value !== 'string') {
-        return undefined;
-    }
+    if (typeof value === 'string') {
+        const normalized = value.trim().toLowerCase();
 
-    const normalized = value.trim().toLowerCase();
+        if (normalized === '') {
+            return undefined;
+        }
 
-    if (normalized === 'true') {
+        if (normalized === 'false' || normalized === '0' || normalized === 'no' || normalized === 'off') {
+            return false;
+        }
+
         return true;
     }
 
-    if (normalized === 'false') {
-        return false;
+    if (typeof value === 'number') {
+        return value !== 0;
     }
 
     return undefined;
